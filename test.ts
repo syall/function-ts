@@ -180,7 +180,7 @@ sequence([
     [group, [
         [out, `Declare data = [${data}]`],
         [out, `${C(minimum(data) === 2)} minimum(data) = 2`],
-        [out, `${C(minimum([]) === Infinity)} minimum([]) = Infinity`],
+        [out, `${C(minimum([]) === null)} minimum([]) = null`],
     ]]
 ]);
 
@@ -190,7 +190,7 @@ sequence([
     [group, [
         [out, `Declare data = [${data}]`],
         [out, `${C(maximum(data) === 8)} maximum(data) = 8`],
-        [out, `${C(maximum([]) === -Infinity)} maximum([]) = -Infinity`],
+        [out, `${C(maximum([]) === null)} maximum([]) = null`],
     ]]
 ]);
 

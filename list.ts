@@ -80,16 +80,14 @@ export const find = <T>(a: T[]) => (n: number): T => {
 
 // minimum :: [number] -> number
 export const minimum = (a: number[]): number => {
-    if (head(a) === null) return Infinity;
-    if (tail(a) === []) return head(a);
-    return Math.min(head(a), minimum(tail(a)));
+    if (head(a) === null) return null;
+    else return head(quicksort(a));
 };
 
 // maximum :: [number] -> number
 export const maximum = (a: number[]): number => {
-    if (head(a) === null) return -Infinity;
-    if (tail(a) === []) return head(a);
-    else return Math.max(head(a), maximum(tail(a)));
+    if (head(a) === null) return null;
+    else return head(reverse(quicksort(a)));
 };
 
 // prepend :: T -> [T] -> [T]
