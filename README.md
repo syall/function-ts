@@ -39,26 +39,23 @@ add x y = x + y
 const add: (x: number) => (y: number) => number
 /* add */ = x => y => x + y;
 ```
-
-Sadly, Haskell pattern matching does not exist in TypeScript.
-
-Instead, the implementation had to use `if` statements in the body which act as specific cases and `else` which acts as the wildcard case.
+Haskell pattern matching does not exist in TypeScript so the implementation uses `if` statements as cases and `else` as the wildcard.
 
 ### IO
 
 `out` is a function that takes in a value and passes it into JavaScript's `console.log`. `out` also returns an IO monad type using the character `'ё'`.
 
-Besides this, the `sequence` function takes in the `[Function, any][]` type, meaning that `sequence` takes a list of functions and corresponding arguments and applies them in sequence. However, since `sequence` can take in functions that return an IO monad type, the sequence function itself also has that same IO monad type.
+The `sequence` function takes in the `[Function, any][]` type, meaning that `sequence` takes a list of functions and corresponding arguments and applies them in sequence. However, since `sequence` can take in functions that return an IO monad type, the sequence function itself also has that same IO monad type.
 
 Finally, `group` is identical to `sequence` except it wraps the function calls with `console.group` and `console.groupEnd`.
 
 ### Composition
 
-`dot` is a function that takes in two functions, modeling mathematical function composition typically denoted as `f·g` or `f(g(x)`.
+`dot` is a function that takes in two functions, modeling mathematical function composition: `f·g` or `f(g(x)`.
 
 The `g` function takes input type `A` to produce type `B` and the `f` function takes in the output from `g` an input of type `B` to produce type `C`.
 
-Because of this, the type of `dot` is `(B -> C) -> (A -> B) -> A -> C` which means that you can partially apply the first two functions to create a new function, which can then be completely applied when the input argument is supplied later!
+The type of `dot` is `(B -> C) -> (A -> B) -> A -> C` which means that you can partially apply the first two functions to create a new function, which can then be completely applied when the input argument is supplied later!
 
 ### Lists
 
@@ -67,3 +64,13 @@ One of the most useful data structures in Haskell are Lists!
 Lists in Haskell are typically one type so all of the functions implemented are constrained to singly-typed lists.
 
 Most of the functions implemented were found from [Haskell Wiki](https://wiki.haskell.org/How_to_work_on_lists).
+
+### Testing
+
+`test.ts` uses the functions `sequence`, `out`, and `group` to structure the tests like traditional JavaScript libraries.
+
+Since arrays are objects in implementation, the arrays cannot be compared with the `===` operator as that compares the object reference as opposed to values; to bypass this, the arrays were stringified and then compared.
+
+The `C` function is for the UI, writing '✓' when the test case passed and '✗' when it failed.
+
+I found numerous bugs, particularly in the `minimum` and `maximum` functions, when writing the test suite!
